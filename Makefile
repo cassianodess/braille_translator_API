@@ -5,7 +5,7 @@ include .env
 export
 
 run:
-	source .venv/bin/activate; export FLASK_APP=main; flask run --port=8080
+	source .venv/bin/activate; export FLASK_APP=main; flask run --port=8080 --host=0.0.0.0
 
 debug:
 	source .venv/bin/activate; export FLASK_APP=main; export FLASK_DEBUG=true; flask run --port=8080
