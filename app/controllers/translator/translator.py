@@ -1,6 +1,7 @@
 from flask import Blueprint, make_response, request
 import pytesseract
 from PIL import Image
+from app.controllers.translator.braille import decode
 
 translator_blueprint = Blueprint("translator_blueprint", __name__, url_prefix="/api/translate")
 
@@ -20,6 +21,6 @@ def translate():
         "message": "text has been translated successfully",
         "data": {
             "raw_text": image_to_text,
-            "braille": "",
+            "braille": decode(image_to_text),
         },
     }), 200
