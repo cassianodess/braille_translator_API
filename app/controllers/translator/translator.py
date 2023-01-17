@@ -9,18 +9,28 @@ translator_blueprint = Blueprint("translator_blueprint", __name__, url_prefix="/
 @translator_blueprint.route("", methods=["POST"])
 def translate():
 
-    image = request.files["image"]
+    try:
+        image = request.files["image"]
 
-    image_to_text = pytesseract.image_to_string(
-        Image.open(image),
-         lang="por+eng",
-         output_type=pytesseract.Output.STRING
-    )
+        image_to_text = pytesseract.image_to_string(
+            Image.open(image),
+            lang="por+eng",
+            output_type=pytesseract.Output.STRING,
+            timeout=5
+        )
 
-    return make_response({
-        "message": "text has been translated successfully",
-        "data": {
-            "raw_text": image_to_text,
-            "braille": decode(image_to_text),
-        },
+        return make_response({
+            "status": 200,
+            "message": "text has been translated successfully",
+            "data": {
+                "raw_text": image_to_text,
+                "braille": decode(image_to_text),
+            },
+        }), 200
+
+    except Exception:
+        return make_response({
+        "status": 400,
+        "message": "fail in translate text image",
+        "data": None
     }), 200
