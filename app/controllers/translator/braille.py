@@ -13,6 +13,7 @@ def dots(*args):
 
 
 PREFIX = {
+    "uppercase":     dots(4, 6) + dots(4, 6),
     "TODO2":     dots(4, 5),
     "greek":     dots(4, 5, 6),
     "TODO4":     dots(5),
@@ -36,33 +37,36 @@ SYMBOLS = {
     ',': dots(2),
     ';': dots(2, 3),
     ':': dots(2, 5),
-    '/': dots(2, 5, 6),
+    '/': dots(6)+dots(2),
     '?': dots(2, 6),
     '+': dots(2, 3, 5),
     '=': dots(2, 3, 5, 6),
     '~': dots(2, 3, 4, 6),
     '"': dots(2, 3, 6),
+    "''": dots(6) + dots(2, 3, 6),
     '*': dots(3, 5),
     '°': dots(3, 5, 6),
     '#': dots(3, 4, 5, 6) + dots(1, 3),
     '.': dots(3),
     '-': dots(3, 6),
-    '$': dots(4) + dots(1, 4, 5),
-    '€': dots(4) + dots(1, 2, 3),
+    '%': dots(4, 5, 6) + dots(3, 5, 6),
+    '—': dots(3, 6) + dots(3, 6),
+    '$': dots(5, 6),
+    '€': dots(4) + dots(1, 5),
     '£': dots(4) + dots(1, 2, 3),
     '^': dots(4) + dots(2, 3, 4, 6),
     '|': dots(4, 5, 6) + dots(1, 2, 4, 5, 6),
-    '`': dots(4, 5, 6) + dots(2, 3, 4, 6),
+    '`': dots(4, 5, 6),
     '{': dots(5) + dots(1, 2, 3),
     '}': dots(4, 5, 6) + dots(2),
-    '>': dots(5) + dots(1, 3, 5),
-    '<': dots(5) + dots(2, 4, 6),
-    '&': dots(5) + dots(1, 2, 3, 4, 6),
-    '[': dots(5) + dots(1, 2, 3, 5, 6),
-    '[': dots(5) + dots(2, 3, 4, 5, 6),
+    '>': dots(1, 3, 5),
+    '<': dots(2, 4, 6),
+    '&': dots(1, 2, 3, 4, 6),
+    '[': dots(1, 2, 3, 5, 6),
+    ']': dots(2, 3, 4, 5, 6),
     '´': dots(5) + dots(2, 3, 4, 6),
-    '(': dots(5) + dots(1, 2, 6),
-    ')': dots(5) + dots(3, 4, 5),
+    '(': dots(1, 2, 6),
+    ')': dots(3, 4, 5),
     '!': dots(5) + dots(2, 3, 5)
 
 }
@@ -151,20 +155,39 @@ ALPHABET = {
 def decode(text: str):
 
     response = ""
-    for letter in text:
-        if letter in NUMBERS:
-            response += NUMBERS[letter]
+    if text.isupper():
+        response += PREFIX["uppercase"]
 
-        elif letter.lower() in ALPHABET:
-            response += ALPHABET[letter]
+        for letter in text:
+            if letter in NUMBERS:
+                response += NUMBERS[letter]
 
-        elif letter == ' ':
-            response += ' '
+            elif letter.lower() in ALPHABET:
+                response += ALPHABET[letter.lower()]
 
-        elif letter in SYMBOLS:
-            response += SYMBOLS[letter]
+            elif letter == ' ':
+                response += ' '
 
-        elif letter == "\n":
-            response += "\n"
+            elif letter in SYMBOLS:
+                response += SYMBOLS[letter]
+
+            elif letter == "\n":
+                response += "\n"
+    else:
+        for letter in text:
+            if letter in NUMBERS:
+                response += NUMBERS[letter]
+
+            elif letter.lower() in ALPHABET:
+                response += ALPHABET[letter]
+
+            elif letter == ' ':
+                response += ' '
+
+            elif letter in SYMBOLS:
+                response += SYMBOLS[letter]
+
+            elif letter == "\n":
+                response += "\n"
 
     return response
