@@ -12,3 +12,6 @@ run:
 
 debug:
 	source .venv/bin/activate; export FLASK_APP=main; export FLASK_DEBUG=true; flask run --port=8080
+
+requirements:
+	python -m pip freezy > requirements.txt

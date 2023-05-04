@@ -153,12 +153,13 @@ ALPHABET = {
 
 
 def decode(text: str):
-
+    words = text.split(" ")
     response = ""
-    if text.isupper():
-        response += PREFIX["uppercase"]
+    for word in words:
+        if word.isupper():
+            response += PREFIX["uppercase"]
 
-        for letter in text:
+        for letter in word:
             if letter in NUMBERS:
                 response += NUMBERS[letter]
 
@@ -173,21 +174,7 @@ def decode(text: str):
 
             elif letter == "\n":
                 response += "\n"
-    else:
-        for letter in text:
-            if letter in NUMBERS:
-                response += NUMBERS[letter]
-
-            elif letter.lower() in ALPHABET:
-                response += ALPHABET[letter]
-
-            elif letter == ' ':
-                response += ' '
-
-            elif letter in SYMBOLS:
-                response += SYMBOLS[letter]
-
-            elif letter == "\n":
-                response += "\n"
+                
+        response += " "
 
     return response

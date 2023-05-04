@@ -1,9 +1,15 @@
-# fly.toml file generated for braille-translator-api on 2023-01-16T21:14:04-03:00
+# fly.toml app configuration file generated for braille-translator-api on 2023-04-25T17:28:47-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
 app = "braille-translator-api"
 kill_signal = "SIGINT"
 kill_timeout = 5
+primary_region = "gru"
 processes = []
+
+[build]
 
 [env]
   SECRET= "braille-translator"
