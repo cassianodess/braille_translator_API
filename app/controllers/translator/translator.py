@@ -66,6 +66,19 @@ def translate():
                 },
             }), 200
         
+        elif file.keys().__contains__("txt"):
+            text = str(request.files["txt"].read(), 'utf-8')
+            if len(text) < 1:
+                raise Exception("text must not be empty")
+            return make_response({
+                "status": 200,
+                "message": "TXT file has been translated successfully",
+                "data": {
+                    "raw_text": text,
+                    "braille": decode(text)
+                },
+            }), 200
+        
         else:
             raise Exception("there is no file in body")
 
