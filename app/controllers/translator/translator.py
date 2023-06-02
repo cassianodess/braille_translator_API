@@ -12,6 +12,19 @@ translator_blueprint = Blueprint("translator_blueprint", __name__, url_prefix="/
 def translate():
 
     try:
+        if request.form.get("text"):
+            text = request.form.get("text")
+            if len(text) < 1:
+                raise Exception("text must not be empty")
+            return make_response({
+                "status": 200,
+                "message": "Text has been translated successfully",
+                "data": {
+                    "raw_text": text,
+                    "braille": decode(text)
+                },
+            }), 200
+        
         file = request.files.to_dict()
 
         if file.keys().__contains__("image"):
