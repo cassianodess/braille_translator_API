@@ -100,4 +100,4 @@ def translate():
         "status": 400,
         "message": error.args[0],
         "data": None
-    }), 200
+    }), 400
