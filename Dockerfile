@@ -10,6 +10,8 @@ RUN apt-get install automake ca-certificates g++ git libtool libleptonica-dev ma
 
 RUN apt-get install --no-install-recommends asciidoc docbook-xsl xsltproc -y
 
+RUN apt-get install ffmpeg libsm6 libxext6 -y
+
 RUN apt-get install libpango1.0-dev -y
 
 RUN git clone https://github.com/tesseract-ocr/tesseract.git
