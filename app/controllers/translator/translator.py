@@ -4,7 +4,7 @@ from PIL import Image
 from app.controllers.translator.braille import decode
 from PyPDF2 import PdfReader
 import docx2txt
-
+from app.utils.image_process import image_process
 translator_blueprint = Blueprint("translator_blueprint", __name__, url_prefix="/api/translate")
 
 
@@ -28,12 +28,12 @@ def translate():
         file = request.files.to_dict()
 
         if file.keys().__contains__("image"):
-            image = request.files["image"]
+            image = image_process(request.files["image"])
             image_to_text = pytesseract.image_to_string(
-                Image.open(image),
+                image,
                 lang="por+eng",
                 output_type=pytesseract.Output.STRING,
-                timeout=5
+                timeout=60
             )
 
             if len(image_to_text) < 1:
