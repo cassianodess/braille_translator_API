@@ -1,5 +1,5 @@
 from flask import Flask, request, make_response
-from app.controllers.translator.translator import translator_blueprint
+from app.controllers.translator import translator_blueprint
 from os import getenv
 from flask_cors import CORS
 
